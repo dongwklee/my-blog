@@ -2,16 +2,43 @@
 
 {% block content %}
     <div class="post">
-        {% if post.published_date %}
-            <div class="date">
-                {{ post.published_date }}
-            </div>
-         <!--{% else %}  모르ㅐㅅ다.. //-->
-            <a class="btn btn-default" href="{% url 'blog.views.post_publish' pk=post.pk %}">Publish</a>
-        {% endif %}
-        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-        
+      <div class="potitlecopy">
+ <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+
         <h1>{{ post.title }}</h1>
-        <p>{{ post.text|linebreaksbr }}</p>
+
+        {% if post.picture %}
+          <img class="IMA" src="{{ post.picture.url}}"/>
+          {% if post.published_date %}
+          <span class="dateleft">{{ post.published_date }}</span>
+              <div class="date">
+
+
+              </div>
+          {% else %}<a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+              <a class="btn btn-default" href="{% url 'blog.views.post_publish' pk=post.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+
+          {% endif %}
+
+          <br>
+
+
+          {% endif %}
+        {{ post.text|linebreaksbr }}
+        <br/>
+        {% for image in post.image_set.all %}
+          <img class= "ima"src="{{ image.picture.url }}" /></span><br>
+        {% endfor %}
+        <div class="rd_nav img_tx fr m_btn_wrp">
+        <div class ="m_no_533">
+          <a class="back_to bubble m_no" href="#body" title="위로">
+            <i class="fa fa-arrow-up">
+            </i>
+            <b class="tx">위로</b>
+          </a>
+      </div>
+    </div>
+      <img src="{{ image.picture.url }}" /></span>
     </div>
 {% endblock %}
+git commit -m "Modified templates to display posts from database."
